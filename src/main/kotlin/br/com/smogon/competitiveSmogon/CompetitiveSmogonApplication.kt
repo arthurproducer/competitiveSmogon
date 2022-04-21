@@ -32,3 +32,8 @@ fun main(args: Array<String>) {
 
 	println(json.title)
 }
+
+fun callSmogon() {
+	// TODO Para chamar a smogon eu preciso passar os parametros necessários para a chamada.
+}
+
