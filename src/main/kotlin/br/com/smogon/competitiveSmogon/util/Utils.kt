@@ -55,8 +55,7 @@ class Utils {
     }
 
     fun formating(page : String) {
-        /** TODO # --------------------------------
-        # Removing formatting from recieved data
+        /** TODO # Removing formatting from recieved data
         # --------------------------------
         def formating(page):
         '''

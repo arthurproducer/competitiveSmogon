@@ -35,7 +35,7 @@ class Contact_Smogon {
     }
 
     fun set_url() {
-        /** TODO Forma a url que vai ser usada para buscar uma informação na smogon
+        /** TODO DONE Forma a url que vai ser usada para buscar uma informação na smogon
         def __set_urls(self):
             for y in self.years:
                 for m in self.months:
