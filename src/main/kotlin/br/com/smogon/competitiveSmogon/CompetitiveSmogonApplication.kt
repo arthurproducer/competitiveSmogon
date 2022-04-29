@@ -46,10 +46,9 @@ fun callSmogon() {
 			.build()
 
 	val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-
-//	println(response.body())
-
-	var rankCSV = arrayListOf<String>()
+	
+	val rankCSV = arrayListOf<String>()
+	val responsePokemon = arrayListOf<Pokemon>()
 	val sb = StringBuilder()
 
 	response.body().forEach {
@@ -67,24 +66,22 @@ fun callSmogon() {
 			it.startsWith(",") -> rankCSV.add(it)
 		}
 	}
-	rankCSV.forEach {
-		//TODO tudo que for virgula separar em um objeto
-		println(it)
+	rankCSV.forEach { values ->
+		var filterPokemon = values.split(",")
+		filterPokemon = filterPokemon.filterNot { it.isNullOrEmpty()}
 
-//		Pokemon(
-//		rank = it.substringAfter(",").substringBefore(",").filter { f -> f.isDigit() }.toLong(),
-//		pokemon = it.substringAfter(",",","),
-//		usage_pct = it.substringAfter(",",",").toDouble(),
-//		raw_usage = it.substringAfter(",",",").toDouble(),
-//		raw_pct = it.substringAfter(",",",").toDouble(),
-//		real = it.substringAfter(",",",").toDouble(),
-//		real_pct =  it.substringAfter(",",",").toDouble()
-//		)
+		responsePokemon.add(Pokemon(
+		rank = filterPokemon[0].toLong(),
+		pokemon = filterPokemon[1],
+		usage_pct = filterPokemon[2].toDouble(),
+		raw_usage = filterPokemon[3].toDouble(),
+		raw_pct = filterPokemon[4].toDouble(),
+		real = filterPokemon[5].toDouble(),
+		real_pct =  filterPokemon[6].toDouble()
+		))
 	}
 
-	println(rankCSV)
-	println(rankCSV[0])
-
+	println(responsePokemon)
 
 	// TODO Para chamar a smogon eu preciso passar os parametros necessários para a chamada.
 }
