@@ -6,7 +6,6 @@ import javax.persistence.*
 @Entity
 data class Pokemon(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long? = null,
         var rank: Long,
         var pokemon: String,
         var dex: Long? = null,

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 class RankService(private val rankRepository: RankRepository) {
     fun listar(year: String, month: String, gen: String, tier: String, rating: String) : List<Pokemon>  {
         val entryProtocol = EntryProtocol(year, month, gen, tier, rating)
-
         return rankRepository.doRequest(entryProtocol)
     }
 }

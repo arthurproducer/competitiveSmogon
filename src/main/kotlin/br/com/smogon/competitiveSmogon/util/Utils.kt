@@ -1,5 +1,12 @@
 package br.com.smogon.competitiveSmogon.util
 
+import br.com.smogon.competitiveSmogon.model.Pokedex
+import br.com.smogon.competitiveSmogon.model.PokedexData
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import java.nio.file.Paths
+
 class Utils {
 
     fun pokedict() {
