@@ -56,15 +56,15 @@ class RankRepository {
                     raw_pct = filterPokemon[4].toDouble(),
                     real = filterPokemon[5].toDouble(),
                     real_pct =  filterPokemon[6].toDouble(),
+                    tier = "gen" + entryProtocol.gen + entryProtocol.tier,
+                    date = entryProtocol.year + "/" + entryProtocol.month
             ))
         }
         return responsePokemon
 
         //TODO Tratar os campos abaixo:
-        // PREVIOUS_MONTH -
+        // PREVIOUS_MONTH
         // IMAGE
-        // Date -> year-month
-        // Tier -> gen + entryProcotol.gen + entryProtocol.tier
     }
 
     private fun getUrl(entryProtocol: EntryProtocol): String {
