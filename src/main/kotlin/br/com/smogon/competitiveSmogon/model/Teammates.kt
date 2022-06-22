@@ -8,7 +8,7 @@ import javax.persistence.Id
 @Entity
 data class Teammates(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Int,
+        var id: Int? = null,
         val name : String,
         val usage: String
 )

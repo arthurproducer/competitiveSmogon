@@ -8,8 +8,10 @@ import javax.persistence.Id
 @Entity
 data class Checks(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Int,
-        val name : String,
-        val ko: String,
-        val switched: String
-)
+        var id: Int? = null,
+        var name : String,
+        var ko: String,
+        var switched: String
+) {
+        constructor() : this (null,"","","")
+}

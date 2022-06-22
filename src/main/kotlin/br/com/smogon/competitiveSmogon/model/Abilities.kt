@@ -9,7 +9,7 @@ import javax.persistence.Id
 data class Abilities(
         val name : String,
         val usage: String,
-        val is_hidden: Boolean,
+        val is_hidden: Boolean? = false,
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         val slot: Int
 )

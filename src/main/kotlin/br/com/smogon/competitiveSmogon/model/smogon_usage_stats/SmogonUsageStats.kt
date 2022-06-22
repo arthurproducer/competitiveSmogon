@@ -14,5 +14,5 @@ open class SmogonUsageStats : DynamicSpreadsInterface {
         val items: HashMap<String, String> = HashMap()
         val moves: HashMap<String, String> = HashMap()
         val teammates: HashMap<String, String> = HashMap()
-        val checks: HashMap<String, HashMap<String,String>> = HashMap()
+        val checks: HashMap<String, StyleKillsChecks> = HashMap()
 }
