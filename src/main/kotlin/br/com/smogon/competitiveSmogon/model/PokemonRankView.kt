@@ -4,7 +4,7 @@ import java.net.URL
 import javax.persistence.*
 
 @Entity
-data class Pokemon(
+data class PokemonRankView(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         var rank: Long,
         var pokemon: String,

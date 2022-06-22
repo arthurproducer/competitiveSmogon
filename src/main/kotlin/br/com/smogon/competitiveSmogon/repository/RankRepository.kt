@@ -1,6 +1,10 @@
 package br.com.smogon.competitiveSmogon.repository
 
+import br.com.smogon.competitiveSmogon.mapper.PokemonDetailsViewMapper
 import br.com.smogon.competitiveSmogon.model.*
+import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SmogonUsageStats
+import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SpreadsMapper
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -12,13 +16,15 @@ import java.net.http.HttpResponse
 import java.nio.file.Paths
 
 @Repository
-class RankRepository {
+class RankRepository(
+        private val pokemonDetailsViewMapper: PokemonDetailsViewMapper
+) {
 
-    fun doRequest(entryProtocol: EntryProtocol) : List<Pokemon> {
+    fun doRequestRankList(entryProtocol: EntryProtocol) : List<PokemonRankView> {
         val dex = createDex()
         val client = HttpClient.newHttpClient()
         val request = HttpRequest.newBuilder(
-                URI.create(getUrl(entryProtocol)))
+                URI.create(getUrlRankList(entryProtocol)))
                 .header("accept", "application/json")
                 .build()
 
@@ -26,7 +32,7 @@ class RankRepository {
         println(response.body())
 
         val rankCSV = arrayListOf<String>()
-        val responsePokemon = arrayListOf<Pokemon>()
+        val responsePokemon = arrayListOf<PokemonRankView>()
         val sb = StringBuilder()
 
         response.body().forEach {
@@ -47,7 +53,7 @@ class RankRepository {
             var filterPokemon = values.split(",")
             filterPokemon = filterPokemon.filterNot { it.isEmpty()}
 
-            responsePokemon.add(Pokemon(
+            responsePokemon.add(PokemonRankView(
                     rank = filterPokemon[0].toLong(),
                     pokemon = filterPokemon[1],
                     dex = findDex(filterPokemon[1],dex),
@@ -67,11 +73,17 @@ class RankRepository {
         // IMAGE
     }
 
-    private fun getUrl(entryProtocol: EntryProtocol): String {
+    private fun getUrlRankList(entryProtocol: EntryProtocol): String {
 
         val gtr = String.format("gen%s%s-%s",entryProtocol.gen, entryProtocol.tier, entryProtocol.rating)
         return  "https://www.smogon.com/stats/" +
                 "${entryProtocol.year}-${entryProtocol.month}/${gtr}.txt"
+    }
+
+    private fun getUrlRankDetails(entryProtocol: EntryProtocol, name: String): String {
+        val gtr = String.format("gen%s%s/%s",entryProtocol.gen, entryProtocol.tier, entryProtocol.rating)
+        return  "https://smogon-usage-stats.herokuapp.com/" +
+                "${entryProtocol.year}/${entryProtocol.month}/${gtr}/${name}"
     }
 
     fun createDex() : List<Pokedex> {
@@ -90,5 +102,23 @@ class RankRepository {
         } else {
             poke[0].pokedex_number
         }
+    }
+
+    fun doRequestRankDetails(entryProtocol: EntryProtocol, name: String): PokemonDetailsView {
+        val objectMapper = jacksonObjectMapper()
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+
+        val dex = createDex()
+        val client = HttpClient.newHttpClient()
+        val request = HttpRequest.newBuilder(
+                URI.create(getUrlRankDetails(entryProtocol,name)))
+                .header("accept", "application/json")
+                .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        println(response.body())
+
+        val responseSmogon: SmogonUsageStats = objectMapper.readValue(response.body().toString(), SmogonUsageStats::class.java)
+        return pokemonDetailsViewMapper.map(responseSmogon)
     }
 }

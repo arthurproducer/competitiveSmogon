@@ -1,18 +1,18 @@
 package br.com.smogon.competitiveSmogon
 
 import br.com.smogon.competitiveSmogon.model.APOD
-import br.com.smogon.competitiveSmogon.model.Pokemon
+import br.com.smogon.competitiveSmogon.model.PokemonRankView
+import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SmogonUsageStats
+import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SpreadsMapper
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import java.io.BufferedReader
 import java.net.URI
-import java.net.URL
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
-import java.util.Scanner
 
 @SpringBootApplication
 class CompetitiveSmogonApplication
@@ -33,7 +33,8 @@ fun main(args: Array<String>) {
 	val json = objectMapper.readValue(response.body(),object : TypeReference<APOD>(){})
 
 	println(json.title)
-	callSmogon()
+//	callSmogon()
+	doRequestRankDetails()
 }
 
 fun callSmogon() {
@@ -48,7 +49,7 @@ fun callSmogon() {
 	val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 	
 	val rankCSV = arrayListOf<String>()
-	val responsePokemon = arrayListOf<Pokemon>()
+	val responsePokemon = arrayListOf<PokemonRankView>()
 	val sb = StringBuilder()
 
 	response.body().forEach {
@@ -70,7 +71,7 @@ fun callSmogon() {
 		var filterPokemon = values.split(",")
 		filterPokemon = filterPokemon.filterNot { it.isNullOrEmpty()}
 
-		responsePokemon.add(Pokemon(
+		responsePokemon.add(PokemonRankView(
 		rank = filterPokemon[0].toLong(),
 		pokemon = filterPokemon[1],
 		usage_pct = filterPokemon[2].toDouble(),
@@ -84,5 +85,38 @@ fun callSmogon() {
 	println(responsePokemon)
 
 	// TODO Para chamar a smogon eu preciso passar os parametros necessários para a chamada.
+}
+
+fun doRequestRankDetails() {
+	val objectMapper = jacksonObjectMapper()
+	objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+//	objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+
+
+	val client = HttpClient.newHttpClient()
+	val request = HttpRequest.newBuilder(
+			URI.create(getUrlRankDetails()))
+			.header("accept", "application/json")
+			.build()
+
+	val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+	println(response.body())
+
+
+	val product: SmogonUsageStats = objectMapper.readValue(response.body().toString(), SmogonUsageStats::class.java)
+	val king = product as SpreadsMapper
+	println(product)
+	println(king.spreads?.natures)
+	val jolly = king.spreads?.any()?.filterKeys { it?.contains("Jolly") ?: false }
+	println(jolly?.get("Jolly")?.get("4/252/0/0/0/252"))
+	val att = king.spreads?.any()?.filterKeys { it?.contains("Timid") ?: false }
+	println(att?.get("Timid"))
+
+}
+
+
+private fun getUrlRankDetails(): String {
+        return "https://smogon-usage-stats.herokuapp.com/2020/12/gen8uu/1630/charizard"
+
 }
 

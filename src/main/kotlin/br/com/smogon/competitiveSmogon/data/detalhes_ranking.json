@@ -1,0 +1,219 @@
+{
+    "tier": "gen8uu", 
+    "pokemon": "Snorlax",
+    "rank": "102",
+    "usage": "0.51276%",
+    "raw": "3773",
+    "dex":143, // Pegar da Dex ou pegar da lista(ranking)
+    "type_1": "normal", //Pegar da dex
+    "type_2": null, //Pegar da Dex
+    "abilities": [
+        {
+            "name": "immunity",
+            "usage": "3.026%",
+            "is_hidden": false,
+            "slot": 1
+        },
+        {
+            "name": "thick-fat",
+            "usage":"96.222%",
+            "is_hidden": false,
+            "slot": 2
+        },
+        {
+            "name": "gluttony",
+            "usage": "0.752%",
+            "is_hidden": true,
+            "slot": 3
+        }
+    ],
+    "items": [
+        {
+            "name": "Leftovers",
+            "usage": "78.233%"
+        },
+        {
+            "name": "Assault Vest",
+            "usage": "11.500%"
+        },
+        {
+            "name": "Chesto Berry",
+            "usage": "6.909%"
+        },
+        {
+            "name": "Other",
+            "usage": "3.359%"
+        }
+    ],
+    "spreads": [
+        {
+            "nature": "Careful",
+            "spread": "12/0/244/0/252/0",
+            "usage": "64.379%",
+            "hp":12,
+            "attack":0,
+            "defense":244,
+            "sp.atk":0,
+            "sp.def":252,
+            "speed":0
+        },
+        {
+            "nature": "Careful",
+            "spread": "252/252/0/0/0/0",
+            "usage": "6.613%",
+            "hp":252,
+            "attack":252,
+            "defense":0,
+            "sp.atk":0,
+            "sp.def":0,
+            "speed":0
+        },
+        {
+            "nature": "Careful",
+            "spread": "240/0/168/0/100/0",
+            "usage": "4.679%",
+            "hp":240,
+            "attack":0,
+            "defense":168,
+            "sp.atk":0,
+            "sp.def":100,
+            "speed":0
+        },
+        {
+            "nature": "Adamant",
+            "spread": "252/4/252/0/0/0",
+            "usage": "4.907%",
+            "hp":252,
+            "attack":4,
+            "defense":252,
+            "sp.atk":0,
+            "sp.def":0,
+            "speed":0
+        },
+        {
+            "nature": "Relaxed",
+            "spread": "4/0/252/0/252/0",
+            "usage": "3.850%",
+            "hp":4,
+            "attack":0,
+            "defense":252,
+            "sp.atk":0,
+            "sp.def":252,
+            "speed":0
+        },
+        {
+            "nature": "Impish",
+            "spread": "0/252/252/0/4/0",
+            "usage": "3.829%",
+            "hp":0,
+            "attack":252,
+            "defense":252,
+            "sp.atk":0,
+            "sp.def":4,
+            "speed":0
+        },
+        {
+            "nature": "Other",
+            "spread": null,
+            "usage": "11.743%",
+            "hp":null,
+            "attack":null,
+            "defense":null,
+            "sp.atk":null,
+            "sp.def":null,
+            "speed":null
+        }
+    ],
+    "moves": [
+        {
+            "name": "Body Slam", //Converter para encontrar na api da poke evo (body-slam) https://pokeapi.co/api/v2/move/body-slam/ ou pelo id https://pokeapi.co/api/v2/move/34/
+            "type": "Normal",
+            "usage": "90.369%",
+            "power": 85,
+            "pp": 15,
+            "accuracy": 100,
+            "id": 34,
+            "damage_class": "physical"
+        },
+        {
+            "name": "Rest", 
+            "type": "Psychic",
+            "usage": "85.127%",
+            "power": null,
+            "pp": 10,
+            "accuracy": null,
+            "id": 156,
+            "damage_class": "status"
+        },
+        {
+            "name": "Curse", 
+            "type": "Ghost",
+            "usage": "84.801%",
+            "power": null,
+            "pp": 10,
+            "accuracy": null,
+            "id": 174,
+            "damage_class": "status"
+        },
+        {
+            "name": "Earthquake", 
+            "type": "ground",
+            "usage": "84.047%",
+            "power": 100,
+            "pp": 10,
+            "accuracy": 100,
+            "id": 89,
+            "damage_class": "physical"
+        },
+        {
+            "name": "Other", 
+            "type": null,
+            "usage": "18.992%",
+            "power": null,
+            "pp": null,
+            "accuracy": null,
+            "id": 0,
+            "damage_class": null
+        }
+    ],
+    "teammates": [
+        {
+            "name": "Cobalion",
+            "usage": "65.770%"
+        },
+        {
+            "name": "Salamence",
+            "usage": "61.906%"
+        },
+        {
+            "name": "Slowbro-Galar",
+            "usage": "60.895%"
+        },
+        {
+            "name": "Diggersby",
+            "usage": "44.707%"
+        }
+    ],
+    "checks": [
+        {
+            "name": "Sirfetch'd",
+            "ko": "20.5%",
+            "switched": "67.2%"
+        },
+        {
+            "name": "Rhyperior",
+            "ko": "7.9%",
+            "switched": "76.0%"
+        },
+        {
+            "name": "Crawdaunt",
+            "ko": "34.9%",
+            "switched": "52.1%"
+        },
+        {
+            "name": "Doublade",
+            "ko": "18.2%",
+            "switched": "58.7%"
+        }
+    ] 
+}
