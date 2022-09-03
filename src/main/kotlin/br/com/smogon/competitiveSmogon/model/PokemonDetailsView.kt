@@ -6,11 +6,11 @@ import javax.persistence.*
 @Entity
 data class PokemonDetailsView(
         val tier: String? = null,
-        var pokemon: String,
+        var pokemon: String? = null,
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var rank: Long,
-        var usage: String,
-        var raw: String,
+        var rank: Long? = 0,
+        var usage: String? = null,
+        var raw: String? = null,
         var dex: Long? = null,
         val date: String? = null,
         val image: URL? = null,
@@ -23,7 +23,7 @@ data class PokemonDetailsView(
         @OneToMany
         val spreads: List<Spreads?> = listOf(),
         @OneToMany
-        val moves: List<Moves?> = listOf(),
+        var moves: List<Moves?> = listOf(),
         @OneToMany
         val teammates: List<Teammates?> = listOf(),
         @OneToMany

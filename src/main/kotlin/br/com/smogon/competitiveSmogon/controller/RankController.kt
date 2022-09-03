@@ -35,4 +35,5 @@ class RankController(private val rankService: RankService) {
         return rankService.findByName(entryProtocol, name)
     }
 
+    //TODO Verificar se é melhor fazer os moves entrarem como uma segunda requisição /moves
 }

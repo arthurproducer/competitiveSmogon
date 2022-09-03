@@ -1,13 +1,18 @@
 package br.com.smogon.competitiveSmogon.mapper
 
 import br.com.smogon.competitiveSmogon.model.*
+import br.com.smogon.competitiveSmogon.model.pokeAPI.PokeAPIMovesResponse
 import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SmogonUsageStats
 import br.com.smogon.competitiveSmogon.model.smogon_usage_stats.SpreadsMapper
+import br.com.smogon.competitiveSmogon.repository.RankRepository
+import br.com.smogon.competitiveSmogon.util.Commons
 import org.springframework.stereotype.Component
 
 @Component
 class PokemonDetailsViewMapper: Mapper<SmogonUsageStats, PokemonDetailsView> {
     override fun map(t: SmogonUsageStats): PokemonDetailsView {
+        val dex = Commons().createDex()
+        val poke = Commons().findDex(t.pokemon.lowercase(),dex)
 
         return PokemonDetailsView(
                 tier = t.tier,
@@ -15,12 +20,12 @@ class PokemonDetailsViewMapper: Mapper<SmogonUsageStats, PokemonDetailsView> {
                 rank = t.rank.toLong(),
                 usage = t.usage,
                 raw = t.raw,
-                dex = null,
+                dex = poke?.pokedex_number,
                 date = null,
                 image = null,
-                type_1 = null,
-                type_2 = null,
-                abilities = abilitiesMap(t),
+                type_1 = poke?.type_1,
+                type_2 = poke?.type_2,
+                abilities = abilitiesMap(t,poke),
                 items = itemMap(t),
                 spreads = spreadMap(t),
                 moves = movesMap(t),
@@ -29,13 +34,14 @@ class PokemonDetailsViewMapper: Mapper<SmogonUsageStats, PokemonDetailsView> {
         )
     }
 
-    private fun abilitiesMap(t: SmogonUsageStats): List<Abilities> {
+    private fun abilitiesMap(t: SmogonUsageStats,poke: Pokedex?): List<Abilities> {
         val listAbilities = arrayListOf<Abilities>()
         var count = 0
         t.abilities.map {
             listAbilities.add(Abilities(
                     name = it.component1(),
                     usage = it.component2(),
+                    is_hidden = isHiddenAbility(it.component1().lowercase(),poke),
                     slot = count+1
             ))
             count += 1
@@ -43,6 +49,9 @@ class PokemonDetailsViewMapper: Mapper<SmogonUsageStats, PokemonDetailsView> {
         return listAbilities
     }
 
+    private fun isHiddenAbility(ability: String, poke: Pokedex?) : Boolean {
+        return poke?.ability_hidden.equals(ability)
+    }
     private fun itemMap(t: SmogonUsageStats): List<Items> {
         val listItems = arrayListOf<Items>()
         t.items.map {

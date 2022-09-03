@@ -12,7 +12,7 @@ open class SmogonUsageStats : DynamicSpreadsInterface {
         val raw: String = ""
         val abilities: HashMap<String, String> = HashMap()
         val items: HashMap<String, String> = HashMap()
-        val moves: HashMap<String, String> = HashMap()
+        var moves: HashMap<String, String> = HashMap()
         val teammates: HashMap<String, String> = HashMap()
         val checks: HashMap<String, StyleKillsChecks> = HashMap()
 }

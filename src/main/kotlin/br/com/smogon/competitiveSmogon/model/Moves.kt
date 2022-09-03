@@ -8,12 +8,12 @@ import javax.persistence.Id
 @Entity
 data class Moves(
         val name: String,
-        val type: String? = null,
+        var type: String? = null,
         val usage: String,
-        val power: Int? = 0,
-        val pp: Int? = 0,
-        val accuracy: Int? = 0,
+        var power: Int? = 0,
+        var pp: Int? = 0,
+        var accuracy: Int? = 0,
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long? = 0,
-        val damage_class: String? = null
+        var id: Long? = 0,
+        var damage_class: String? = null
 )

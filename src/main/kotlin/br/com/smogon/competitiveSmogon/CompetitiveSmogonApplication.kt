@@ -20,6 +20,12 @@ class CompetitiveSmogonApplication
 fun main(args: Array<String>) {
 	runApplication<CompetitiveSmogonApplication>(*args)
 
+	//callAPINasa()
+//	callSmogon()
+	//doRequestRankDetails()
+}
+
+fun callAPINasa() {
 	val client = HttpClient.newHttpClient()
 	val objectMapper = jacksonObjectMapper()
 
@@ -33,8 +39,6 @@ fun main(args: Array<String>) {
 	val json = objectMapper.readValue(response.body(),object : TypeReference<APOD>(){})
 
 	println(json.title)
-//	callSmogon()
-	doRequestRankDetails()
 }
 
 fun callSmogon() {

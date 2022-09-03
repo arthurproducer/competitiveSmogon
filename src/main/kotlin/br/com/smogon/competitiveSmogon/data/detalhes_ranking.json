@@ -4,10 +4,10 @@
     "rank": "102",
     "usage": "0.51276%",
     "raw": "3773",
-    "dex":143, // Pegar da Dex ou pegar da lista(ranking)
+    "dex":143, // Pegar da Dex ou pegar da lista(ranking) ou dessa outra api
     "type_1": "normal", //Pegar da dex
     "type_2": null, //Pegar da Dex
-    "abilities": [
+    "abilities": [ //is_hidden tem que pegar da https://pokeapi.co/api/v2/pokemon/snorlax ou da dex
         {
             "name": "immunity",
             "usage": "3.026%",
@@ -124,9 +124,9 @@
             "speed":null
         }
     ],
-    "moves": [
+    "moves": [ //Converter para encontrar na api da poke evo (body-slam) https://pokeapi.co/api/v2/move/body-slam/ ou pelo id https://pokeapi.co/api/v2/move/34/
         {
-            "name": "Body Slam", //Converter para encontrar na api da poke evo (body-slam) https://pokeapi.co/api/v2/move/body-slam/ ou pelo id https://pokeapi.co/api/v2/move/34/
+            "name": "Body Slam", 
             "type": "Normal",
             "usage": "90.369%",
             "power": 85,
